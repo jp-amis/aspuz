@@ -45,7 +45,8 @@ package co.amis.aspuz {
 			
 			this._numberOfCells = this._header.width * this._header.height;			
 			this._stateStart = _solutionStart + _numberOfCells;
-
+			
+			// TODO Change variable name to just solution
 			this._rawSolution = Aspuz.readByteArray(byteArray, this._solutionStart, "multiByte", this._numberOfCells);
 			
 			var line:String = "";
