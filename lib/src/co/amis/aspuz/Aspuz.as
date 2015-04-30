@@ -9,7 +9,7 @@ package co.amis.aspuz {
 		
 		public function Aspuz() {}
 		
-		public static function readByteArray(byteArray:ByteArray, position:uint, type:String="string", length:uint=0x0):* {
+		public static function readByteArray(byteArray:ByteArray, position:uint, type:String="string", length:uint=0x0, charset:String="iso-8859-1"):* {
 			byteArray.position = position;
 			 
 			if(type == "short"){
@@ -22,6 +22,8 @@ package co.amis.aspuz {
 				return byteArray.readByte();
 			} else if(type == "unsignedByte") {
 				return byteArray.readUnsignedByte();
+			} else if(type == "multiByte") {
+				return byteArray.readMultiByte(length, charset);
 			}
 			return null;
 		}

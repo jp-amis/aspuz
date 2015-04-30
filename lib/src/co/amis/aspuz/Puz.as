@@ -13,6 +13,8 @@ package co.amis.aspuz {
 		private var _solutionStart:uint = 0x34;
 		private var _stateStart:uint;
 		
+		private var _rawSolution:String;
+		
 		public function Puz(file:File) {
 			_file = file;
 		}
@@ -43,6 +45,21 @@ package co.amis.aspuz {
 			
 			this._numberOfCells = this._header.width * this._header.height;			
 			this._stateStart = _solutionStart + _numberOfCells;
+
+			this._rawSolution = Aspuz.readByteArray(byteArray, this._solutionStart, "multiByte", this._numberOfCells);
+			
+			var line:String = "";
+			for(var i:int = 0; i < this._rawSolution.length; i++) {				
+				if(this._rawSolution.charAt(i) == ".") {
+					line += "-";
+				} else {
+					line += this._rawSolution.charAt(i);
+				}
+				if(line.length == this._header.width) {					
+					trace(line);
+					line = "";
+				}
+			}
 		}
 	}
 	
