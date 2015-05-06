@@ -12,8 +12,14 @@ package co.amis.aspuz {
 		
 		private var _solutionStart:uint = 0x34;
 		private var _stateStart:uint;
+		private var _stringStart:uint;
 		
-		private var _rawSolution:String;
+		private var _solution:String;
+		private var _state:String;
+		
+		private var _title:String;
+		private var _author:String;
+		private var _copyright:String;
 		
 		public function Puz(file:File) {
 			_file = file;
@@ -44,23 +50,41 @@ package co.amis.aspuz {
 			this._header.scrambledTag = Aspuz.readByteArray(byteArray, 0x32, 'unsignedByte');
 			
 			this._numberOfCells = this._header.width * this._header.height;			
-			this._stateStart = _solutionStart + _numberOfCells;
+			this._stateStart = this._solutionStart + this._numberOfCells;
 			
-			// TODO Change variable name to just solution
-			this._rawSolution = Aspuz.readByteArray(byteArray, this._solutionStart, "multiByte", this._numberOfCells);
+			this._solution = Aspuz.readByteArray(byteArray, this._solutionStart, "multiByte", this._numberOfCells);
+			this._state = Aspuz.readByteArray(byteArray, this._stateStart, "multiByte", this._numberOfCells);
 			
-			var line:String = "";
-			for(var i:int = 0; i < this._rawSolution.length; i++) {				
-				if(this._rawSolution.charAt(i) == ".") {
-					line += "-";
-				} else {
-					line += this._rawSolution.charAt(i);
+			this._stringStart = this._stateStart + this._numberOfCells;
+			var output:String = "";
+			var output2:String = "";
+			var byte:uint;
+			var j:uint=0;
+			var clues:Array = new Array();
+			var stringsCount:int = 0;
+			for (var i:uint = this._stringStart; i < byteArray.length; i+=1) {
+				byte = uint(byteArray[i]);
+				//check if null string 
+				if(byte == 0) {
+					//go back and get all
+					var arr:Array = new Array();
+					j = i-1;
+					while(uint(byteArray[j]) != 0 && j >= this._stringStart) {
+						arr.push(String.fromCharCode(uint(byteArray[j])));
+						j--;
+					}
+					arr.reverse();
+					
+					//clues
+					if(stringsCount > 2){
+						clues.push(arr.join(""));
+						if(clues.length == this._header.numberOfClues) break;
+					}
+					
+					
+					stringsCount++;
 				}
-				if(line.length == this._header.width) {					
-					trace(line);
-					line = "";
-				}
-			}
+			}						
 		}
 	}
 	
