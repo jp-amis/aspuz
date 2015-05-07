@@ -4,6 +4,8 @@
     <classEntry path="co.amis.aspuz.Aspuz"/>
     <classEntry path="co.amis.aspuz.Puz"/>
     <classEntry path="co.amis.aspuz.PuzHeader"/>
+    <classEntry path="co.amis.aspuz.Clue"/>
+    <classEntry path="co.amis.aspuz.Cell"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
