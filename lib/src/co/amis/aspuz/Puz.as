@@ -68,7 +68,7 @@ package co.amis.aspuz {
 			
 			var clues:Vector.<String> = new Vector.<String>();
 		
-			//loop all the strings
+//			loop all the strings
 			for ( i = this._stringStart; i < byteLength ; i++) {
 				byte = uint(byteArray[i]);
 //				check if null byte
@@ -99,16 +99,62 @@ package co.amis.aspuz {
 //			loop every X cell then Y++
 			var y:int = 0;
 			var x:int = 0;
-			
+			var blackCell:Boolean;
+			var currentCellNumber:int = 1;
+			var currentClue:int = 0;
+			var isNumberAssigned:Boolean;
+			var needsDownNumber:Boolean;
+			var needsAcrossNumber:Boolean;
 			for( y ; y < this._header.height; y++ ) {
 				for( x ; x < this._header.width; x++ ) {
-					this._cells.push(new Cell(x, y, this.isBlackCell(x, y) ? Cell.TYPE_BLACK : Cell.TYPE_LETTER, this.getLetter(x, y)));				
+					blackCell = this.isBlackCell(x, y);
+					this._cells.push(new Cell(x, y, this.isBlackCell(x, y) ? Cell.TYPE_BLACK : Cell.TYPE_LETTER, this.getLetter(x, y), this.getLetterState(x, y)));
+					
+//					if it's a black cell there is no need to keep checking
+					if(blackCell) 
+						continue;
+					
+					isNumberAssigned = false;
+					
+					needsAcrossNumber = cellNeedsAcrossNumber(x, y);
+					needsDownNumber = cellNeedsDownNumber(x, y);
+					
+					if(needsAcrossNumber) {
+						isNumberAssigned = true;	
+						
+						this._clues.push(new Clue(currentCellNumber, x, y, Clue.HORIZONTAL, clues[currentClue], this.getNumberOfLetters(x, y, Clue.HORIZONTAL)));
+						
+						currentClue++;
+					}
+					
+					if(needsDownNumber) {
+						isNumberAssigned = true;
+						
+						this._clues.push(new Clue(currentCellNumber, x, y, Clue.VERTICAL, clues[currentClue], this.getNumberOfLetters(x, y, Clue.VERTICAL)));
+						
+						currentClue++;
+					}
+					
+					if(isNumberAssigned) currentCellNumber++;
 				}
 				x = 0;
 			}
-			trace(this._cells);
 		}
 		
+		private function cellNeedsAcrossNumber(x:int, y:int):Boolean {
+			if( x == 0 || this.isBlackCell(x-1, y) )
+				if( x + 1 < this._header.width && !this.isBlackCell(x+1, y) )
+					return true;
+			return false;
+		}
+		
+		private function cellNeedsDownNumber(x:int, y:int):Boolean {
+			if( y == 0 || this.isBlackCell(x, y-1) )
+				if( y + 1 < this._header.height && !this.isBlackCell(x, y+1) )
+					return true;
+			return false;
+		}		
+			
 		private function isBlackCell(x:int, y:int):Boolean {
 			var pos:int = (this._header.width * y) + x;
 			return pos >= 0 ? this._solution.charAt(pos) == "." : false;
@@ -117,6 +163,29 @@ package co.amis.aspuz {
 		private function getLetter(x:int, y:int):String {
 			var pos:int = (this._header.width * y) + x;
 			return pos >= 0 ? this._solution.charAt(pos) : null;
+		}
+		
+		private function getLetterState(x:int, y:int):String {
+			var pos:int = (this._header.width * y) + x;
+			return pos >= 0 ? this._state.charAt(pos) : null;
+		}
+		
+		private function getNumberOfLetters(x:int, y:int, direction:String):int {
+			var size:int = 0;
+			
+			if(direction == Clue.HORIZONTAL) {
+				while (x < this._header.width && !this.isBlackCell(x, y)) {
+					size++; 
+					x++;
+				}
+			} else if(direction == Clue.VERTICAL) {
+				while (y < this._header.height && !this.isBlackCell(x, y)) {
+					size++; 
+					y++;
+				}
+			}
+			
+			return size;
 		}
 	}
 	
