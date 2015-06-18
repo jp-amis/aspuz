@@ -19,6 +19,56 @@ package co.amis.aspuz {
 			this._state = state;
 		}
 		
+		public function get state():String
+		{
+			return _state;
+		}
+
+		public function set state(value:String):void
+		{
+			_state = value;
+		}
+
+		public function get letter():String
+		{
+			return _letter;
+		}
+
+		public function set letter(value:String):void
+		{
+			_letter = value;
+		}
+
+		public function get type():String
+		{
+			return _type;
+		}
+
+		public function set type(value:String):void
+		{
+			_type = value;
+		}
+
+		public function get y():int
+		{
+			return _y;
+		}
+
+		public function set y(value:int):void
+		{
+			_y = value;
+		}
+
+		public function get x():int
+		{
+			return _x;
+		}
+
+		public function set x(value:int):void
+		{
+			_x = value;
+		}
+
 	}
 	
 }

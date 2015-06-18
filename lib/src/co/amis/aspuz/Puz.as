@@ -28,6 +28,26 @@ package co.amis.aspuz {
 			_file = file;
 		}
 		
+		public function get cells():Vector.<Cell>
+		{
+			return _cells;
+		}
+
+		public function set cells(value:Vector.<Cell>):void
+		{
+			_cells = value;
+		}
+
+		public function get header():PuzHeader
+		{
+			return _header;
+		}
+
+		public function set header(value:PuzHeader):void
+		{
+			_header = value;
+		}
+
 		public function parse():void {
 			var fileStream:FileStream = new FileStream(); 
 			fileStream.open(_file, FileMode.READ);
