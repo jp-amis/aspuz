@@ -4,7 +4,7 @@ package co.amis.aspuz {
 	import flash.filesystem.FileStream;
 	import flash.utils.ByteArray;
 
-	internal class Puz {
+	public class Puz {
 		
 		private var _file:File;
 		private var _header:PuzHeader = new PuzHeader();

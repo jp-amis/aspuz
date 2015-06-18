@@ -1,8 +1,6 @@
 package co.amis.aspuz {
 	
 	import flash.filesystem.File;
-	import flash.filesystem.FileMode;
-	import flash.filesystem.FileStream;
 	import flash.utils.ByteArray;
 	
 	public class Aspuz {
