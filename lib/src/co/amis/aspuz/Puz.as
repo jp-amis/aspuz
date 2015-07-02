@@ -28,6 +28,16 @@ package co.amis.aspuz {
 			_file = file;
 		}
 		
+		public function get title():String
+		{
+			return _title;
+		}
+
+		public function set title(value:String):void
+		{
+			_title = value;
+		}
+
 		public function get cells():Vector.<Cell>
 		{
 			return _cells;
