@@ -28,6 +28,16 @@ package co.amis.aspuz {
 			_file = file;
 		}
 		
+		public function get author():String
+		{
+			return _author;
+		}
+
+		public function set author(value:String):void
+		{
+			_author = value;
+		}
+
 		public function get title():String
 		{
 			return _title;
