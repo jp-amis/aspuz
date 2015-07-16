@@ -28,6 +28,16 @@ package co.amis.aspuz {
 			_file = file;
 		}
 		
+		public function get clues():Vector.<Clue>
+		{
+			return _clues;
+		}
+
+		public function set clues(value:Vector.<Clue>):void
+		{
+			_clues = value;
+		}
+
 		public function get author():String
 		{
 			return _author;

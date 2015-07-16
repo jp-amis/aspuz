@@ -21,6 +21,46 @@ package co.amis.aspuz {
 			this._size = size;
 		}
 		
+		public function get direction():String
+		{
+			return _direction;
+		}
+
+		public function set direction(value:String):void
+		{
+			_direction = value;
+		}
+
+		public function get x():int
+		{
+			return _x;
+		}
+
+		public function set x(value:int):void
+		{
+			_x = value;
+		}
+
+		public function get y():int
+		{
+			return _y;
+		}
+
+		public function set y(value:int):void
+		{
+			_y = value;
+		}
+
+		public function get number():int
+		{
+			return _number;
+		}
+
+		public function set number(value:int):void
+		{
+			_number = value;
+		}
+
 	}
 	
 }
