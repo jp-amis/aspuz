@@ -205,7 +205,7 @@ package co.amis.aspuz {
 			return false;
 		}		
 			
-		private function isBlackCell(x:int, y:int):Boolean {
+		public function isBlackCell(x:int, y:int):Boolean {
 			var pos:int = (this._header.width * y) + x;
 			return pos >= 0 ? this._solution.charAt(pos) == "." : false;
 		}
