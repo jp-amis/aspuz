@@ -71,6 +71,11 @@ package co.amis.aspuz {
 			_number = value;
 		}
 
+		public function get size():int
+		{
+			return _size;
+		}
+
 	}
 	
 }
