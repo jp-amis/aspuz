@@ -28,6 +28,16 @@ package co.amis.aspuz {
 			_file = file;
 		}
 		
+		public function get copyright():String
+		{
+			return _copyright;
+		}
+
+		public function set copyright(value:String):void
+		{
+			_copyright = value;
+		}
+
 		public function get clues():Vector.<Clue>
 		{
 			return _clues;
