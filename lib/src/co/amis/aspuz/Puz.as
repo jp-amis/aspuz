@@ -136,11 +136,18 @@ package co.amis.aspuz {
 					// go back and get all bytes until last null byte
 					lastBytes.length = 0;
 					j = i-1;
-					while(uint(byteArray[j]) != 0 && j >= this._stringStart) {
-						lastBytes.push(String.fromCharCode(uint(byteArray[j])));
+					while(uint(byteArray[j]) != 0 && j >= this._stringStart) {						
+//						trace('::'+j);
+//						trace(uint(byteArray[j]));
+//						trace(String.fromCharCode(uint(byteArray[j])));
+						if(uint(byteArray[j]) == 147 || uint(byteArray[j]) == 148) {
+							lastBytes.push('"');
+						} else {
+							lastBytes.push(String.fromCharCode(uint(byteArray[j])));
+						}
 						j--;
-					}
-					lastBytes.reverse();
+					}					
+					lastBytes.reverse();					
 					
 					if(stringsCount == 0) this._title = lastBytes.join("");
 					else if(stringsCount == 1) this._author = lastBytes.join("");
@@ -154,6 +161,8 @@ package co.amis.aspuz {
 					stringsCount++;
 				}
 			}
+			
+			trace('COPYRIGHT: ' + this._copyright);
 			
 //			loop every cell and process it
 //			loop every X cell then Y++
